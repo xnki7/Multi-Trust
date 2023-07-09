@@ -1,0 +1,133 @@
+.Homepage .header {
+  min-height: 54vh;
+  max-height: 54vh;
+  background-color: #151c47;
+  /* position: fixed; */
+  width: 100%;
+}
+
+.Homepage p {
+  margin: 0;
+}
+
+.Homepage .subheader {
+  height: 10vh;
+  /* background-color: aqua; */
+  width: 90%;
+  padding-left: 5%;
+  padding-right: 5%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 3vh;
+  padding-top: 1vh;
+  text-align: center;
+}
+
+.Homepage .header .subheader p.heading {
+  font-size: 2em;
+  color: #ebeb2b;
+  font-weight: 500;
+  font-family: Jomolhari;
+}
+
+.Homepage .footer {
+  height: 34vh;
+  background-color: #e2e2e2;
+}
+
+.Homepage .header .boxes {
+  height: 69vh;
+  /* position: fixed; */
+  width: 90%;
+  margin-left: 5%;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  margin-top: 2vh;
+}
+
+.Homepage .header .boxes .boxRow {
+  width: 48%;
+  height: 69vh;
+  background-color: white;
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25),
+    0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.Homepage .header .boxes .boxColumn {
+  width: 48%;
+  height: 69vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.Homepage .header .boxes .boxColumn .interactWallet {
+  height: 20vh;
+  width: 100%;
+  background-color: white;
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25),
+    0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.Homepage .header .boxes .boxColumn .recentWallets {
+  height: 43vh;
+  width: 100%;
+  background-color: white;
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25),
+    0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.Homepage .header .boxes .boxRow .createWallet p.heading {
+  font-size: 1.8em;
+  color: black;
+  text-align: center;
+  margin-top: 5vh;
+  font-weight: 500;
+}
+
+.Homepage .header .boxes .boxRow .createWallet .inputBoxes {
+  width: 85%;
+  height: 43vh;
+  margin-top: 5vh;
+  margin-left: 7.5%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-direction: column;
+}
+
+.Homepage .header .boxes .boxRow .createWallet .inputBoxes .inB {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.Homepage .header .boxes .boxRow .createWallet .inputBoxes .inB img{
+    height: 5vh;
+}
+
+.Homepage .header .boxes .boxRow .createWallet .inputBoxes .inB .imgs{
+    width: 17%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.Homepage .header .boxes .boxRow .createWallet .inputBoxes .inB input {
+  border: none;
+  background-color: #E2E2E2;
+  width: 70%;
+  height: 5vh;
+}
