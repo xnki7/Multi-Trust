@@ -1,0 +1,185 @@
+.Wallet {
+  width: 90%;
+  min-height: 88vh;
+  padding-left: 5%;
+  padding-right: 5%;
+  background-color: #151c47;
+}
+
+.Wallet p {
+  margin: 0;
+}
+
+.Wallet .mainBox {
+  height: 47.5vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+  padding-top: 1vh;
+}
+
+.Wallet .mainBox .walletAddress {
+  width: 100%;
+  height: 10vh;
+  border: 1.5px solid #e2e2e2;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Wallet .mainBox .boxRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 35vh;
+}
+
+.Wallet .mainBox .boxRow .owners {
+  width: 25%;
+  height: 35vh;
+  border: 1.5px solid #e2e2e2;
+  border-radius: 15px;
+  overflow-y: auto;
+}
+
+.Wallet .mainBox .boxRow .walletBalance {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+  width: 35%;
+  height: 35vh;
+  background-color: white;
+  border-radius: 15px;
+}
+
+.Wallet .mainBox .boxRow .transaction {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+  width: 35%;
+  height: 35vh;
+  border: 1.5px solid #e2e2e2;
+  border-radius: 15px;
+}
+
+.Wallet .table {
+  height: 35vh;
+  width: 100%;
+  background-color: #e2e2e2;
+  margin-top: 2.5vh;
+}
+
+.Wallet .mainBox .walletAddress p.address {
+  font-size: 1.2em;
+  color: white;
+  text-align: center;
+  letter-spacing: 2px;
+}
+
+.Wallet .mainBox .boxRow .owners p.heading {
+  color: #fff;
+  text-align: center;
+  font-family: Jomolhari;
+  font-size: 2em;
+  margin-top: 2vh;
+  padding-bottom: 2vh;
+  border-bottom: 1px solid #e2e2e2;
+  width: 100%;
+}
+
+.Wallet .mainBox .boxRow .owners p.owner {
+  color: #fff;
+  text-align: center;
+  font-size: 1.1em;
+  padding-bottom: 1.5vh;
+  padding-top: 1.5vh;
+  border-bottom: 1px solid #e2e2e2;
+  width: 100%;
+}
+
+.Wallet .mainBox .boxRow .walletBalance p.heading {
+  font-size: 2em;
+  letter-spacing: 2px;
+  font-weight: 500;
+  font-size: 2em;
+  margin-top: 1.5vh;
+  width: 100%;
+  text-align: center;
+}
+
+.Wallet .mainBox .boxRow .walletBalance p.balance {
+  font-size: 3.25em;
+  font-weight: 700;
+  text-align: center;
+  letter-spacing: 1.5px;
+  padding-bottom: 1rem;
+}
+
+.Wallet .mainBox .boxRow .walletBalance .deposit {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 85%;
+  margin-bottom: 2vh;
+}
+
+.Wallet .mainBox .boxRow .walletBalance input {
+  width: 70%;
+  border: none;
+  background-color: #e2e2e2;
+  height: 5.5vh;
+  font-size: 1.2em;
+  font-family: Jomolhari;
+}
+
+.Wallet .mainBox .boxRow .walletBalance input::placeholder {
+  text-align: center;
+  font-size: 0.925em;
+}
+
+.Wallet .mainBox .boxRow .walletBalance .deposit button {
+  height: 6vh;
+  width: 25%;
+  background-color: #fcb500;
+  border: none;
+  font-size: 1.2em;
+  border-radius: 7px;
+  font-family: Jomolhari;
+}
+
+.Wallet .mainBox .boxRow .transaction p.heading {
+  color: #fff;
+  text-align: center;
+  font-family: Jomolhari;
+  font-size: 2em;
+  margin-top: 2vh;
+  width: 100%;
+}
+
+.Wallet .mainBox .boxRow .transaction input {
+  border: none;
+  height: 5vh;
+  font-size: 1.1em;
+  width: 85%;
+  background-color: #e2e2e2;
+  font-family: Jomolhari;
+  text-align: center;
+}
+
+.Wallet .mainBox .boxRow .transaction button {
+  height: 6vh;
+  width: 30%;
+  font-size: 1.2em;
+  font-family: Jomolhari;
+  border: none;
+  border-radius: 7px;
+  background-color: #006633;
+  color: white;
+  margin-bottom: 2vh;
+}
