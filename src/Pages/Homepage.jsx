@@ -17,25 +17,28 @@ function Homepage() {
               <p className="heading">Create Multi-Signature Wallet</p>
               <div className="inputBoxes">
                 <div className="inB">
-                  <input type="text" />
+                  <input type="text" placeholder="Account 1" />
                   <div className="imgs">
                     <img src={require("../components/plus.png")} />
                     <img src={require("../components/minus.png")} />
                   </div>
                 </div>
                 <div className="inB">
-                  <input type="text" />
+                  <input type="text" placeholder="Account 2" />
                   <div className="imgs">
                     <img src={require("../components/plus.png")} />
                     <img src={require("../components/minus.png")} />
                   </div>
                 </div>
                 <div className="inB">
-                  <input type="text" />
+                  <input type="text" placeholder="Account 3" />
                   <div className="imgs">
                     <img src={require("../components/plus.png")} />
                     <img src={require("../components/minus.png")} />
                   </div>
+                </div>
+                <div className="inB">
+                  <input type="text" placeholder="Required Approvals" />
                 </div>
               </div>
               <button>Create Wallet</button>
@@ -43,9 +46,19 @@ function Homepage() {
           </div>
           <div className="boxColumn">
             <div className="interactWallet">
-              <p>edkla</p>
+              <p className="heading">Interact With A Multi-Sig Wallet</p>
+              <div className="interactBox">
+                <input type="text" placeholder="Wallet Address" />
+                <button id="btnInteract">Interact</button>
+              </div>
             </div>
-            <div className="recentWallets"></div>
+            <div className="recentWallets">
+              <p className="heading">Recently Created Wallet(s)</p>
+              <div className="addresses">
+                <p className="address">0x37cBCf2...33c20ad32</p>
+                <button id="btnInteract">Interact</button>
+              </div>
+            </div>
           </div>
         </div>
       </div>

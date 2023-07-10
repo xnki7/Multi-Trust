@@ -13,9 +13,9 @@
 .Homepage .subheader {
   height: 10vh;
   /* background-color: aqua; */
-  width: 90%;
-  padding-left: 5%;
-  padding-right: 5%;
+  width: 80%;
+  padding-left: 10%;
+  padding-right: 10%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -39,8 +39,8 @@
 .Homepage .header .boxes {
   height: 69vh;
   /* position: fixed; */
-  width: 90%;
-  margin-left: 5%;
+  width: 80%;
+  margin-left: 10%;
   z-index: 10;
   display: flex;
   align-items: center;
@@ -84,27 +84,68 @@
   background-color: white;
   border-radius: 20px;
   background: #fff;
+  overflow-y: auto;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25),
     0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background-color: #ffffff;
+  /* border: 0.5px solid #181717; */
+  border-radius: 20px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  border-radius: 20px;
+  border: 0.5px solid transparent;
+  background-clip: content-box;
+  background-color: #b6b6b6;
 }
 
 .Homepage .header .boxes .boxRow .createWallet p.heading {
   font-size: 1.8em;
   color: black;
   text-align: center;
-  margin-top: 5vh;
+  margin-top: 3vh;
   font-weight: 500;
+}
+
+.Homepage .header .boxes .interactWallet p.heading {
+  font-size: 1.8em;
+  color: black;
+  text-align: center;
+  margin-top: 2vh;
+  font-weight: 500;
+  margin-bottom: 3.75vh;
+}
+
+.Homepage .header .boxes .boxColumn .recentWallets p.heading {
+  font-size: 1.8em;
+  color: black;
+  text-align: center;
+  margin-top: 2vh;
+  font-weight: 500;
+  position: sticky;
+  padding-bottom: 1vh;
 }
 
 .Homepage .header .boxes .boxRow .createWallet .inputBoxes {
   width: 85%;
   height: 43vh;
-  margin-top: 5vh;
+  overflow-y: auto;
+  margin-top: 2vh;
   margin-left: 7.5%;
+  margin-right: 7.5%;
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
   flex-direction: column;
+  justify-content: space-evenly;
 }
 
 .Homepage .header .boxes .boxRow .createWallet .inputBoxes .inB {
@@ -112,22 +153,102 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-top: 2vh;
 }
 
-.Homepage .header .boxes .boxRow .createWallet .inputBoxes .inB img{
-    height: 5vh;
+.Homepage .header .boxes .boxRow .createWallet .inputBoxes .inB img {
+  height: 3vh;
 }
 
-.Homepage .header .boxes .boxRow .createWallet .inputBoxes .inB .imgs{
-    width: 17%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+.Homepage .header .boxes .boxRow .createWallet .inputBoxes .inB .imgs {
+  width: 17%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
 }
 
 .Homepage .header .boxes .boxRow .createWallet .inputBoxes .inB input {
   border: none;
-  background-color: #E2E2E2;
-  width: 70%;
+  background-color: #e2e2e2;
+  width: 75%;
   height: 5vh;
+  text-align: center;
+  font-size: 1.1em;
+  color: rgb(0, 0, 0);
+}
+
+.Homepage .header .boxes .interactWallet input {
+  border: none;
+  background-color: #e2e2e2;
+  width: 60%;
+  height: 5vh;
+  text-align: center;
+  font-size: 1.1em;
+  color: rgb(0, 0, 0);
+  margin-left: 7.5%;
+}
+
+.Homepage
+  .header
+  .boxes
+  .boxRow
+  .createWallet
+  .inputBoxes
+  .inB
+  input::placeholder {
+  text-align: center;
+  /* font-size: 1.1em; */
+  color: rgba(0, 0, 0, 0.535);
+}
+
+.Homepage .header .boxes .boxRow .createWallet {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.Homepage .header .boxes .boxRow .createWallet button {
+  margin-top: 3vh;
+  border: none;
+  border-radius: 10px;
+  width: 15vw;
+  height: 7vh;
+  color: white;
+  background-color: #006633;
+  font-size: 1.2em;
+}
+
+.Homepage .header .boxes .interactWallet .interactBox {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.Homepage .header .boxes button#btnInteract {
+  width: 20%;
+  margin-left: 4vh;
+  height: 5.5vh;
+  margin-right: 7.5%;
+  background-color: #fcb500;
+  border: none;
+  font-size: 1.2em;
+  border-radius: 7px;
+}
+
+.Homepage .header .boxes .boxColumn .recentWallets .addresses {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 3vh;
+}
+
+.Homepage .header .boxes .boxColumn .recentWallets p.address {
+  margin-left: 7.5%;
+  background-color: #e2e2e2;
+  width: 60%;
+  height: 4.85vh;
+  text-align: center;
+  font-size: 1.2em;
+  padding-top: 0.15em;
 }
