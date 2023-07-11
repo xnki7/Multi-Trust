@@ -137,15 +137,17 @@
 
 .Homepage .header .boxes .boxRow .createWallet .inputBoxes {
   width: 85%;
-  height: 43vh;
-  overflow-y: auto;
-  margin-top: 2vh;
+  height: 33vh;
+  max-height: 45vh;
+  margin-top: 7vh;
+  margin-bottom: 5vh;
   margin-left: 7.5%;
   margin-right: 7.5%;
   display: flex;
   align-items: center;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: space-between;
+  overflow-y: auto;
 }
 
 .Homepage .header .boxes .boxRow .createWallet .inputBoxes .inB {
@@ -153,7 +155,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 2vh;
+  padding-top: 1vh;
 }
 
 .Homepage .header .boxes .boxRow .createWallet .inputBoxes .inB img {

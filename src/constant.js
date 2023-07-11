@@ -1,4 +1,4 @@
-const contractFactoryAddress = "0x615f6C5aAd901159Ec473da64CeC171098a5ca43";
+const contractFactoryAddress = "0x533eCC6B6DE7a8575CeFaCd776042701480661C5";
 
 const contractFactoryABI = [
   {
@@ -34,50 +34,12 @@ const contractFactoryABI = [
   },
   {
     inputs: [],
-    name: "getAllWallets",
+    name: "getMyWallets",
     outputs: [
       {
         internalType: "address[]",
         name: "",
         type: "address[]",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "walletAddress",
-        type: "address",
-      },
-    ],
-    name: "walletExists",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    name: "wallets",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
       },
     ],
     stateMutability: "view",

@@ -3,12 +3,48 @@ import { useState, useEffect } from "react";
 import "./Homepage.css";
 
 function Homepage({ factoryContract }) {
-  const [wallets, setWallets] = useState([]);
+  const [owners, setOwners] = useState(["", ""]);
+  const [myWallets, setMyWallets] = useState([]);
+  const [required, setRequired] = useState(null);
+
+  const addOwners = () => setOwners([...owners, ""]);
+  const removeOwner = (index) => {
+    if (owners.length > 2) {
+      const tempOwners = [...owners];
+      tempOwners.splice(index, 1);
+      setOwners(tempOwners);
+    }
+  };
+
+  const handleOwnerChange = (index, value) => {
+    const tempOwners = [...owners];
+    tempOwners[index] = value;
+    setOwners(tempOwners);
+  };
+
+  const handleRequiredChange = (e) => {
+    setRequired(e.target.value);
+  };
 
   const getAllWallets = async () => {
     if (factoryContract) {
-      const tx = await factoryContract.getAllWallets();
-      setWallets(tx);
+      const tx = await factoryContract.getMyWallets();
+      setMyWallets(tx);
+    }
+  };
+
+  const createWallet = async () => {
+    if (required < 0 || required === "0")
+      return alert("Required Approvals cannot be less than or equal to 0.");
+    if (required > owners.length)
+      return alert("Required Approvals should be less than number of owners");
+    if (!owners.every((owner) => owner.length === 42))
+      return alert("Please Remove Invalid/Empty Owner Addresses");
+    try {
+      const tx = await factoryContract.createWallet(owners, required);
+      await tx.wait();
+    } catch (err) {
+      console.log(err);
     }
   };
 
@@ -30,32 +66,39 @@ function Homepage({ factoryContract }) {
             <div className="createWallet">
               <p className="heading">Create Multi-Signature Wallet</p>
               <div className="inputBoxes">
-                <div className="inB">
-                  <input type="text" placeholder="Account 1" />
-                  <div className="imgs">
-                    <img src={require("../components/plus.png")} />
-                    <img src={require("../components/minus.png")} />
+                {owners.map((owner, index) => (
+                  <div className="inB" key={index}>
+                    <input
+                      type="text"
+                      placeholder={`Wallet Address ${index + 1}`}
+                      value={owner.address}
+                      onChange={(e) => handleOwnerChange(index, e.target.value)}
+                      required
+                    />
+                    <div className="imgs">
+                      <img
+                        src={require("../components/plus.png")}
+                        onClick={addOwners}
+                      />
+                      <img
+                        src={require("../components/minus.png")}
+                        onClick={() => removeOwner(index)}
+                      />
+                    </div>
                   </div>
-                </div>
+                ))}
+
                 <div className="inB">
-                  <input type="text" placeholder="Account 2" />
-                  <div className="imgs">
-                    <img src={require("../components/plus.png")} />
-                    <img src={require("../components/minus.png")} />
-                  </div>
-                </div>
-                <div className="inB">
-                  <input type="text" placeholder="Account 3" />
-                  <div className="imgs">
-                    <img src={require("../components/plus.png")} />
-                    <img src={require("../components/minus.png")} />
-                  </div>
-                </div>
-                <div className="inB">
-                  <input type="text" placeholder="Required Approvals" />
+                  <input
+                    type="number"
+                    placeholder="Required Approvals"
+                    value={required}
+                    onChange={handleRequiredChange}
+                    required
+                  />
                 </div>
               </div>
-              <button>Create Wallet</button>
+              <button onClick={createWallet}>Create Wallet</button>
             </div>
           </div>
           <div className="boxColumn">
@@ -67,12 +110,12 @@ function Homepage({ factoryContract }) {
               </div>
             </div>
             <div className="recentWallets">
-              <p className="heading">Recently Created Wallet(s)</p>
-              {wallets !== null &&
-                wallets.map((wallet) => {
+              <p className="heading">My Wallet(s)</p>
+              {myWallets !== null &&
+                myWallets.map((myWallet) => {
                   return (
                     <div className="addresses">
-                      <p className="address">{wallet}</p>
+                      <p className="address">{myWallet}</p>
                       <button id="btnInteract">Interact</button>
                     </div>
                   );
