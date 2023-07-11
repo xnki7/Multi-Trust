@@ -1,7 +1,21 @@
 import React from "react";
+import { useState, useEffect } from "react";
 import "./Homepage.css";
 
-function Homepage() {
+function Homepage({ factoryContract }) {
+  const [wallets, setWallets] = useState([]);
+
+  const getAllWallets = async () => {
+    if (factoryContract) {
+      const tx = await factoryContract.getAllWallets();
+      setWallets(tx);
+    }
+  };
+
+  useEffect(() => {
+    getAllWallets();
+  }, [factoryContract]);
+
   return (
     <div className="Homepage">
       <div className="header">
@@ -54,10 +68,15 @@ function Homepage() {
             </div>
             <div className="recentWallets">
               <p className="heading">Recently Created Wallet(s)</p>
-              <div className="addresses">
-                <p className="address">0x37cBCf2...33c20ad32</p>
-                <button id="btnInteract">Interact</button>
-              </div>
+              {wallets !== null &&
+                wallets.map((wallet) => {
+                  return (
+                    <div className="addresses">
+                      <p className="address">{wallet}</p>
+                      <button id="btnInteract">Interact</button>
+                    </div>
+                  );
+                })}
             </div>
           </div>
         </div>
