@@ -136,6 +136,7 @@
   height: 5.5vh;
   font-size: 1.2em;
   font-family: Jomolhari;
+  text-align: center;
 }
 
 .Wallet .mainBox .boxRow .walletBalance input::placeholder {

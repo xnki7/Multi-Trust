@@ -4,6 +4,7 @@ import Homepage from "./Pages/Homepage";
 import { contractFactoryAddress, contractFactoryABI } from "./constant";
 import Navbar from "./components/Navbar";
 import Wallet from "./Pages/Wallet";
+import { Routes, Route } from "react-router-dom";
 import { ethers } from "ethers";
 
 function App() {
@@ -40,9 +41,13 @@ function App() {
   return (
     <div className="App">
       <Navbar setConnected={setConnected} setAccount={setAccount} />
-      <Homepage factoryContract={factoryContract}/>
-
-      {/* <Wallet /> */}
+      <Routes>
+        <Route
+          path="/"
+          element={<Homepage factoryContract={factoryContract} />}
+        />
+        <Route path="/wallet/:walletAddress" element={<Wallet/>} />
+      </Routes>
     </div>
   );
 }

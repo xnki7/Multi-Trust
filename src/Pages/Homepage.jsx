@@ -1,11 +1,13 @@
 import React from "react";
 import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import "./Homepage.css";
 
 function Homepage({ factoryContract }) {
   const [owners, setOwners] = useState(["", ""]);
   const [myWallets, setMyWallets] = useState([]);
   const [required, setRequired] = useState(null);
+  const navigate = useNavigate();
 
   const addOwners = () => setOwners([...owners, ""]);
   const removeOwner = (index) => {
@@ -26,7 +28,7 @@ function Homepage({ factoryContract }) {
     setRequired(e.target.value);
   };
 
-  const getAllWallets = async () => {
+  const getMyWallets = async () => {
     if (factoryContract) {
       const tx = await factoryContract.getMyWallets();
       setMyWallets(tx);
@@ -42,14 +44,16 @@ function Homepage({ factoryContract }) {
       return alert("Please Remove Invalid/Empty Owner Addresses");
     try {
       const tx = await factoryContract.createWallet(owners, required);
-      await tx.wait();
+      const receipt = await tx.wait(1);
+      const walletAddress = receipt.events[0].args.walletAddress;
+      navigate(`/wallet/${walletAddress}`);
     } catch (err) {
       console.log(err);
     }
   };
 
   useEffect(() => {
-    getAllWallets();
+    getMyWallets();
   }, [factoryContract]);
 
   return (
@@ -115,8 +119,17 @@ function Homepage({ factoryContract }) {
                 myWallets.map((myWallet) => {
                   return (
                     <div className="addresses">
-                      <p className="address">{myWallet}</p>
-                      <button id="btnInteract">Interact</button>
+                      <p className="address">
+                        {myWallet.slice(0, 10) + "..." + myWallet.slice(32, 42)}
+                      </p>
+                      <button
+                        id="btnInteract"
+                        onClick={() => {
+                          navigate(`/wallet/${myWallet}`);
+                        }}
+                      >
+                        Interact
+                      </button>
                     </div>
                   );
                 })}
