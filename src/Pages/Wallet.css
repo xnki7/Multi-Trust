@@ -6,6 +6,10 @@
   background-color: #151c47;
 }
 
+button {
+  cursor: pointer;
+}
+
 .Wallet p {
   margin: 0;
 }

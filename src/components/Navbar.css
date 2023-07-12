@@ -1,23 +1,28 @@
-.Navbar{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 90%;
-    height: 12vh;
-    padding-left: 5%;
-    padding-right: 5%;
-    background-color: #151C47;
+.Navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 90%;
+  height: 12vh;
+  padding-left: 5%;
+  padding-right: 5%;
+  background-color: #151c47;
 }
 
-.Navbar img{
-    height: 8vh;
+button,
+img {
+  cursor: pointer;
 }
 
-.Navbar button{
-    border: none;
-    border-radius: 10px;
-    background-color: #E2E2E2;
-    height: 6vh;
-    width: 14vw;
-    font-size: 1.1rem;
+.Navbar img {
+  height: 8vh;
+}
+
+.Navbar button {
+  border: none;
+  border-radius: 10px;
+  background-color: #e2e2e2;
+  height: 6vh;
+  width: 14vw;
+  font-size: 1.1rem;
 }

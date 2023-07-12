@@ -6,6 +6,10 @@
   width: 100%;
 }
 
+button, img{
+  cursor: pointer;
+}
+
 .Homepage p {
   margin: 0;
 }
