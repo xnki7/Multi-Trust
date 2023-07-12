@@ -1,4 +1,4 @@
-const contractFactoryAddress = "0xc4783b749C0dBDc6516B04AA7B2e5b713b1CEc81";
+const contractFactoryAddress = "0xA342f41807E808C7CaD3Ef524CBAF82Cb0038D42";
 
 const contractFactoryABI = [
   {
@@ -155,6 +155,25 @@ const contractWalletABI = [
         type: "uint256",
       },
     ],
+    name: "_getApprovalCount",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "count",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "_txId",
+        type: "uint256",
+      },
+    ],
     name: "approve",
     outputs: [],
     stateMutability: "nonpayable",
@@ -237,6 +256,11 @@ const contractWalletABI = [
             name: "executed",
             type: "bool",
           },
+          {
+            internalType: "uint256",
+            name: "timeStamp",
+            type: "uint256",
+          },
         ],
         internalType: "struct MultiSigWallet.Transaction[]",
         name: "",
@@ -311,6 +335,11 @@ const contractWalletABI = [
             internalType: "bool",
             name: "executed",
             type: "bool",
+          },
+          {
+            internalType: "uint256",
+            name: "timeStamp",
+            type: "uint256",
           },
         ],
         internalType: "struct MultiSigWallet.Transaction",
@@ -427,6 +456,11 @@ const contractWalletABI = [
         internalType: "bool",
         name: "executed",
         type: "bool",
+      },
+      {
+        internalType: "uint256",
+        name: "timeStamp",
+        type: "uint256",
       },
     ],
     stateMutability: "view",

@@ -12,7 +12,10 @@ function Wallet() {
   const [depositAmount, setDepositAmount] = useState(null);
   const [amount, setAmount] = useState(null);
   const [toAddress, setToAddress] = useState(null);
+  const [requiredApprovals, setRequiredApprovals] = useState(null);
+  const [isApproved, setIsApproved] = useState(null);
   const [signer, setSigner] = useState(null);
+  const [transactions, setTransactions] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   const depositToWallet = async () => {
@@ -75,9 +78,69 @@ function Wallet() {
       }
     };
 
+    const getAllTransactions = async () => {
+      try {
+        if (contractWallet) {
+          const tx = await contractWallet.getAllTransactions();
+          const transactions = [];
+          for (let _txId = 0; _txId < tx.length; _txId++) {
+            const txn = tx[_txId];
+            if (txn.executed) {
+              transactions.push(txn);
+            } else {
+              const approved = await checkIfApproved(_txId);
+              const approvals = parseInt(await getApprovalsCount(_txId));
+              transactions.push({ ...txn, approved, approvals });
+            }
+          }
+          setTransactions(transactions);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    const getRequiredApprovals = async () => {
+      try {
+        if (contractWallet) {
+          const tx = await contractWallet.getRequiredApprovals();
+          setRequiredApprovals(tx);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
     getOwners();
     getBalance();
+    getAllTransactions();
+    getRequiredApprovals();
   }, [contractWallet, depositToWallet]);
+
+  const checkIfApproved = async (_txId) => {
+    const tx = await contractWallet.checkIfApproved(_txId);
+    return tx;
+  };
+
+  const getApprovalsCount = async (_txId) => {
+    const tx = await contractWallet._getApprovalCount(_txId);
+    return tx;
+  };
+
+  const handleApprove = async (_txId) => {
+    const tx = await contractWallet.approve(_txId);
+    tx.wait();
+  };
+
+  const handleRevoke = async (_txId) => {
+    const tx = await contractWallet.revoke(_txId);
+    tx.wait();
+  };
+
+  const handleExecute = async (_txId) => {
+    const tx = await contractWallet.execute(_txId);
+    tx.wait();
+  };
 
   return (
     <div className="Wallet">
@@ -151,67 +214,57 @@ function Wallet() {
             <th>Date</th>
             <th>Status</th>
           </tr>
-          <tr>
-            <td>1</td>
-            <td>2</td>
-            <td>2 MATIC</td>
-            <td>0x98765...dhu84</td>
-            <td>10 June 2023</td>
-            <td>
-              <button id="Approve">Approve</button>
-            </td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>2</td>
-            <td>2 MATIC</td>
-            <td>0x98765...dhu84</td>
-            <td>10 June 2023</td>
-            <td>
-              <button id="Revoke">Revoke</button>
-            </td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>2</td>
-            <td>2 MATIC</td>
-            <td>0x98765...dhu84</td>
-            <td>10 June 2023</td>
-            <td>
-              <button id="Revoke">Revoke</button>
-            </td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>2</td>
-            <td>2 MATIC</td>
-            <td>0x98765...dhu84</td>
-            <td>10 June 2023</td>
-            <td>
-              <button id="Revoke">Revoke</button>
-            </td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>2</td>
-            <td>2 MATIC</td>
-            <td>0x98765...dhu84</td>
-            <td>10 June 2023</td>
-            <td>
-              <button id="Revoke">Revoke</button>
-            </td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>2</td>
-            <td>2 MATIC</td>
-            <td>0x98765...dhu84</td>
-            <td>10 June 2023</td>
-            <td>
-              <button id="Revoke">Revoke</button>
-            </td>
-          </tr>
-          <tr>
+          {transactions.map((tx, _txId) => {
+            const dateTime = new Date(tx.timeStamp * 1000).toLocaleString();
+            return (
+              <tr>
+                <td>{_txId}</td>
+                <td>
+                  {tx.executed ? (
+                    <p>Tx. Executed</p>
+                  ) : (
+                    <p>
+                      {tx.approvals}/{requiredApprovals.toString()}
+                    </p>
+                  )}
+                </td>
+                <td>{(tx.value / 1000000000000000000).toString()} MATIC</td>
+                <td>{tx.to}</td>
+                <td>{dateTime}</td>
+                <td>
+                  {(tx.executed && <button id="Executed">Executed</button>) ||
+                    (!tx.approved && (
+                      <button onClick={() => handleApprove(_txId)} id="Approve">
+                        Approve
+                      </button>
+                    ))}
+                  {tx.approved && !tx.executed && (
+                    <button onClick={() => handleRevoke(_txId)} id="Revoke">
+                      Revoke
+                    </button>
+                  )}
+                  {tx.approvals >= requiredApprovals && !tx.executed && (
+                    <button
+                      onClick={() => {
+                        if (balance >= tx.value) {
+                          handleExecute(_txId);
+                        } else {
+                          alert(
+                            "Not enough balance in your Multi-Signature Wallet."
+                          );
+                        }
+                      }}
+                      id="Execute"
+                    >
+                      Execute
+                    </button>
+                  )}
+                </td>
+              </tr>
+            );
+          })}
+
+          {/* <tr>
             <td>1</td>
             <td>2</td>
             <td>2 MATIC</td>
@@ -230,57 +283,7 @@ function Wallet() {
             <td>
               <button id="Revoke">Revoke</button>
             </td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>2</td>
-            <td>2 MATIC</td>
-            <td>0x98765...dhu84</td>
-            <td>10 June 2023</td>
-            <td>
-              <button id="Revoke">Revoke</button>
-            </td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>2</td>
-            <td>2 MATIC</td>
-            <td>0x98765...dhu84</td>
-            <td>10 June 2023</td>
-            <td>
-              <button id="Revoke">Revoke</button>
-            </td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>2</td>
-            <td>2 MATIC</td>
-            <td>0x98765...dhu84</td>
-            <td>10 June 2023</td>
-            <td>
-              <button id="Revoke">Revoke</button>
-            </td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>2</td>
-            <td>2 MATIC</td>
-            <td>0x98765...dhu84</td>
-            <td>10 June 2023</td>
-            <td>
-              <button id="Revoke">Revoke</button>
-            </td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>2</td>
-            <td>2 MATIC</td>
-            <td>0x98765...dhu84</td>
-            <td>10 June 2023</td>
-            <td>
-              <button id="Revoke">Revoke</button>
-            </td>
-          </tr>
+          </tr> */}
         </table>
       </div>
     </div>

@@ -220,3 +220,23 @@ button#Revoke {
   border-radius: 5px;
   font-weight: 600;
 }
+
+button#Execute {
+  height: 4.5vh;
+  width: 7vw;
+  background-color: #fcb500;
+  color: black;
+  border: none;
+  border-radius: 5px;
+  font-weight: 600;
+}
+
+button#Executed {
+  height: 4.5vh;
+  width: 7vw;
+  background-color: grey;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-weight: 600;
+}
