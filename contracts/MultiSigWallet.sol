@@ -11,8 +11,8 @@ contract MultiSigWallet{
     struct Transaction{
         address to;
         uint value;
-        bytes data;
         bool executed;
+        uint256 timeStamp;
     }
 
     address[] public owners;
@@ -63,12 +63,12 @@ contract MultiSigWallet{
         emit Deposit(msg.sender, msg.value);
     }
 
-    function submit(address _to, uint _value, bytes calldata _data) external onlyOwner{
+    function submit(address _to, uint _value) external onlyOwner{
         transactions.push(Transaction({
             to: _to,
             value: _value,
-            data: _data,
-            executed: false
+            executed: false,
+            timeStamp: block.timestamp
         }));
         emit Submit(transactions.length - 1);
     }
@@ -78,7 +78,7 @@ contract MultiSigWallet{
         emit Approve(msg.sender, _txId);
     }
 
-    function _getApprovalCount(uint _txId) private view returns (uint count){
+    function _getApprovalCount(uint _txId) public view returns (uint count){
         for(uint i; i<owners.length; i++){
             if(approved[_txId][owners[i]]){
                 count += 1;
@@ -91,7 +91,7 @@ contract MultiSigWallet{
         Transaction storage transaction = transactions[_txId];
 
         transaction.executed = true;
-        (bool success, ) = transaction.to.call{value: transaction.value}(transaction.data);
+        (bool success, ) = transaction.to.call{value: transaction.value}("");
 
         require(success, "tx failed");
         emit Execute(_txId);
@@ -101,5 +101,33 @@ contract MultiSigWallet{
         require(approved[_txId][msg.sender], "tx not approved");
         approved[_txId][msg.sender] = false;
         emit Revoke(msg.sender, _txId);
-    }    
+    }   
+
+    ////////GETTER FUNCTIONS/////////
+
+    function getOwners() public view returns(address[] memory){
+        return owners;
+    } 
+
+    function getBalance() public view returns (uint) {
+        return address(this).balance;
+    }
+
+    function getRequiredApprovals() external view returns (uint256) {
+        return required;
+    }
+
+    function checkIfApproved(uint _txId) external view returns (bool) {
+        return approved[_txId][msg.sender];
+    }
+
+    function getAllTransactions() external view returns (Transaction[] memory) {
+        return transactions;
+    }
+
+    function getTransaction(
+        uint256 _txId
+    ) external view returns (Transaction memory) {
+        return transactions[_txId];
+    }
 }
