@@ -1,13 +1,12 @@
 import React from "react";
 import "./Navbar.css";
+import { Link } from "react-router-dom";
 import "@rainbow-me/rainbowkit/styles.css";
 import { getDefaultWallets, RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import { configureChains, createConfig, WagmiConfig } from "wagmi";
 import { polygonMumbai } from "wagmi/chains";
 import { publicProvider } from "wagmi/providers/public";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
-import { useAccount } from "wagmi";
-import { useState, useEffect } from "react";
 
 const { chains, publicClient } = configureChains(
   [polygonMumbai],
@@ -27,11 +26,11 @@ const wagmiConfig = createConfig({
 });
 
 function Navbar({ setConnected, setAccount }) {
-  // const { isConnected } = useAccount();
-
   return (
     <div className="Navbar">
-      <img src={require("./MultiTrust-transparent-cropped.png")} />
+      <Link to="/">
+        <img src={require("./MultiTrust-transparent-cropped.png")} />
+      </Link>
       <WagmiConfig config={wagmiConfig}>
         <RainbowKitProvider chains={chains} modalSize="compact">
           <ConnectButton.Custom>

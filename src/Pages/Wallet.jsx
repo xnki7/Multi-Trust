@@ -13,25 +13,39 @@ function Wallet() {
   const [amount, setAmount] = useState(null);
   const [toAddress, setToAddress] = useState(null);
   const [requiredApprovals, setRequiredApprovals] = useState(null);
-  const [isApproved, setIsApproved] = useState(null);
   const [signer, setSigner] = useState(null);
   const [transactions, setTransactions] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const depositToWallet = async () => {
-    const tx = await signer.sendTransaction({
-      to: contractWallet.address,
-      value: ethers.utils.parseEther(depositAmount),
-    });
-    await tx.wait();
+    try {
+      setLoading(true);
+      const tx = await signer.sendTransaction({
+        to: contractWallet.address,
+        value: ethers.utils.parseEther(depositAmount),
+      });
+      await tx.wait();
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      console.log(error);
+    }
   };
 
   const submitNewTransaction = async () => {
-    const tx = await contractWallet.submit(
-      toAddress,
-      ethers.utils.parseEther(amount)
-    );
-    await tx.wait();
+    try {
+      setLoading(true);
+      const tx = await contractWallet.submit(
+        toAddress,
+        ethers.utils.parseEther(amount)
+      );
+      await tx.wait();
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      console.log(error);
+    }
   };
 
   useEffect(() => {
@@ -144,6 +158,31 @@ function Wallet() {
 
   return (
     <div className="Wallet">
+      {isLoading ? (
+        <>
+          <div className="overlay2"></div>
+          <div class="spinner"></div>
+        </>
+      ) : (
+        <></>
+      )}
+      {loading ? (
+        <>
+          <div className="overlay2"></div>
+          <div className="loader9">
+            <p>Processing</p>
+            <div className="words">
+              <span className="word">Transaction ...</span>
+              <span className="word">Transaction ...</span>
+              <span className="word">Transaction ...</span>
+              <span className="word">Transaction ...</span>
+              <span className="word">Transaction ...</span>
+            </div>
+          </div>
+        </>
+      ) : (
+        <></>
+      )}
       <div className="mainBox">
         <div className="walletAddress">
           <p className="address">
@@ -214,76 +253,60 @@ function Wallet() {
             <th>Date</th>
             <th>Status</th>
           </tr>
-          {transactions.map((tx, _txId) => {
-            const dateTime = new Date(tx.timeStamp * 1000).toLocaleString();
-            return (
-              <tr>
-                <td>{_txId}</td>
-                <td>
-                  {tx.executed ? (
-                    <p>Tx. Executed</p>
-                  ) : (
-                    <p>
-                      {tx.approvals}/{requiredApprovals.toString()}
-                    </p>
-                  )}
-                </td>
-                <td>{(tx.value / 1000000000000000000).toString()} MATIC</td>
-                <td>{tx.to}</td>
-                <td>{dateTime}</td>
-                <td>
-                  {(tx.executed && <button id="Executed">Executed</button>) ||
-                    (!tx.approved && (
-                      <button onClick={() => handleApprove(_txId)} id="Approve">
-                        Approve
+          {transactions.length > 0 &&
+            [...transactions].reverse().map((tx, index) => {
+              const _txId = transactions.length - index - 1;
+              const dateTime = new Date(tx.timeStamp * 1000).toLocaleString();
+              return (
+                <tr>
+                  <td>{_txId}</td>
+                  <td>
+                    {tx.executed ? (
+                      <p>Tx. Executed</p>
+                    ) : (
+                      <p>
+                        {tx.approvals}/{requiredApprovals.toString()}
+                      </p>
+                    )}
+                  </td>
+                  <td>{(tx.value / 1000000000000000000).toString()} MATIC</td>
+                  <td>{tx.to}</td>
+                  <td>{dateTime}</td>
+                  <td>
+                    {(tx.executed && <button id="Executed">Executed</button>) ||
+                      (!tx.approved && (
+                        <button
+                          onClick={() => handleApprove(_txId)}
+                          id="Approve"
+                        >
+                          Approve
+                        </button>
+                      ))}
+                    {tx.approved && !tx.executed && (
+                      <button onClick={() => handleRevoke(_txId)} id="Revoke">
+                        Revoke
                       </button>
-                    ))}
-                  {tx.approved && !tx.executed && (
-                    <button onClick={() => handleRevoke(_txId)} id="Revoke">
-                      Revoke
-                    </button>
-                  )}
-                  {tx.approvals >= requiredApprovals && !tx.executed && (
-                    <button
-                      onClick={() => {
-                        if (balance >= tx.value) {
-                          handleExecute(_txId);
-                        } else {
-                          alert(
-                            "Not enough balance in your Multi-Signature Wallet."
-                          );
-                        }
-                      }}
-                      id="Execute"
-                    >
-                      Execute
-                    </button>
-                  )}
-                </td>
-              </tr>
-            );
-          })}
-
-          {/* <tr>
-            <td>1</td>
-            <td>2</td>
-            <td>2 MATIC</td>
-            <td>0x98765...dhu84</td>
-            <td>10 June 2023</td>
-            <td>
-              <button id="Revoke">Revoke</button>
-            </td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>2</td>
-            <td>2 MATIC</td>
-            <td>0x98765...dhu84</td>
-            <td>10 June 2023</td>
-            <td>
-              <button id="Revoke">Revoke</button>
-            </td>
-          </tr> */}
+                    )}
+                    {tx.approvals >= requiredApprovals && !tx.executed && (
+                      <button
+                        onClick={() => {
+                          if (balance >= tx.value) {
+                            handleExecute(_txId);
+                          } else {
+                            alert(
+                              "Not enough balance in your Multi-Signature Wallet."
+                            );
+                          }
+                        }}
+                        id="Execute"
+                      >
+                        Execute
+                      </button>
+                    )}
+                  </td>
+                </tr>
+              );
+            })}
         </table>
       </div>
     </div>

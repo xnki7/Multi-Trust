@@ -1,12 +1,14 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./Homepage.css";
 
-function Homepage({ factoryContract, account }) {
+function Homepage({ factoryContract, account, isLoading }) {
   const [owners, setOwners] = useState(["", ""]);
-  const [myWallets, setMyWallets] = useState([]);
+  const [myWallets, setMyWallets] = useState(null);
   const [required, setRequired] = useState(null);
+  const [walletAddress, setWalletAddress] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const addOwners = () => setOwners([...owners, ""]);
@@ -43,11 +45,14 @@ function Homepage({ factoryContract, account }) {
     if (!owners.every((owner) => owner.length === 42))
       return alert("Please Remove Invalid/Empty Owner Addresses");
     try {
+      setLoading(true);
       const tx = await factoryContract.createWallet(owners, required);
       const receipt = await tx.wait(1);
+      setLoading(false);
       const walletAddress = receipt.events[0].args.walletAddress;
       navigate(`/wallet/${walletAddress}`);
     } catch (err) {
+      setLoading(false);
       console.log(err);
     }
   };
@@ -56,8 +61,45 @@ function Homepage({ factoryContract, account }) {
     getMyWallets();
   }, [factoryContract, account]);
 
+  const handleInteract = () => {
+    if (walletAddress.length !== 42) {
+      alert("Invalid Wallet Address.");
+    } else if (!myWallets.includes(walletAddress)) {
+      alert("You don't have access to this wallet address.");
+    } else {
+      navigate(`/wallet/${walletAddress}`);
+    }
+  };
+
+  const reversedWallets = myWallets !== null ? [...myWallets].reverse() : [];
+
   return (
     <div className="Homepage">
+      {isLoading ? (
+        <>
+          <div className="overlay2"></div>
+          <div class="spinner"></div>
+        </>
+      ) : (
+        <></>
+      )}
+      {loading ? (
+        <>
+          <div className="overlay2"></div>
+          <div className="loader9">
+            <p>Processing</p>
+            <div className="words">
+              <span className="word">Transaction ...</span>
+              <span className="word">Transaction ...</span>
+              <span className="word">Transaction ...</span>
+              <span className="word">Transaction ...</span>
+              <span className="word">Transaction ...</span>
+            </div>
+          </div>
+        </>
+      ) : (
+        <></>
+      )}
       <div className="header">
         <div className="subheader">
           <p className="heading">
@@ -109,30 +151,38 @@ function Homepage({ factoryContract, account }) {
             <div className="interactWallet">
               <p className="heading">Interact With A Multi-Sig Wallet</p>
               <div className="interactBox">
-                <input type="text" placeholder="Wallet Address" />
-                <button id="btnInteract">Interact</button>
+                <input
+                  type="text"
+                  placeholder="Wallet Address"
+                  value={walletAddress}
+                  onChange={(e) => {
+                    setWalletAddress(e.target.value);
+                  }}
+                />
+                <button id="btnInteract" onClick={handleInteract}>
+                  Interact
+                </button>
               </div>
             </div>
             <div className="recentWallets">
               <p className="heading">My Wallet(s)</p>
-              {myWallets !== null &&
-                myWallets.map((myWallet) => {
-                  return (
-                    <div className="addresses">
-                      <p className="address">
-                        {myWallet.slice(0, 10) + "..." + myWallet.slice(32, 42)}
-                      </p>
-                      <button
-                        id="btnInteract"
-                        onClick={() => {
-                          navigate(`/wallet/${myWallet}`);
-                        }}
-                      >
-                        Interact
-                      </button>
-                    </div>
-                  );
-                })}
+              {reversedWallets.map((myWallet) => {
+                return (
+                  <div className="addresses">
+                    <p className="address">
+                      {myWallet.slice(0, 10) + "..." + myWallet.slice(32, 42)}
+                    </p>
+                    <button
+                      id="btnInteract"
+                      onClick={() => {
+                        navigate(`/wallet/${myWallet}`);
+                      }}
+                    >
+                      Interact
+                    </button>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>

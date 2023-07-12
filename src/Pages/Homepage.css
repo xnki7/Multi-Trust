@@ -254,3 +254,128 @@
   font-size: 1.2em;
   padding-top: 0.15em;
 }
+
+.loader9 {
+  color: rgb(255, 255, 255);
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  font-size: 25px;
+  -webkit-box-sizing: content-box;
+  box-sizing: content-box;
+  height: 40px;
+  padding: 10px 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  border-radius: 8px;
+  position: fixed;
+  z-index: 35;
+  top: 48%;
+  left: 38%;
+}
+
+.loader9 p {
+  position: relative;
+  top: 0%;
+}
+
+.words {
+  overflow: hidden;
+}
+
+.word {
+  display: block;
+  height: 100%;
+  padding-left: 6px;
+  color: rgb(0, 197, 0);
+  animation: spin_4991 4s infinite;
+}
+
+@keyframes spin_4991 {
+  10% {
+    -webkit-transform: translateY(-105%);
+    transform: translateY(-105%);
+  }
+
+  25% {
+    -webkit-transform: translateY(-100%);
+    transform: translateY(-100%);
+  }
+
+  35% {
+    -webkit-transform: translateY(-205%);
+    transform: translateY(-205%);
+  }
+
+  50% {
+    -webkit-transform: translateY(-200%);
+    transform: translateY(-200%);
+  }
+
+  60% {
+    -webkit-transform: translateY(-305%);
+    transform: translateY(-305%);
+  }
+
+  75% {
+    -webkit-transform: translateY(-300%);
+    transform: translateY(-300%);
+  }
+
+  85% {
+    -webkit-transform: translateY(-405%);
+    transform: translateY(-405%);
+  }
+
+  100% {
+    -webkit-transform: translateY(-400%);
+    transform: translateY(-400%);
+  }
+}
+
+.overlay2 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.82);
+  backdrop-filter: blur(3px);
+  z-index: 25;
+  position: fixed;
+}
+
+.spinner {
+  width: 100px;
+  height: 100px;
+  position: fixed;
+  top: 45%;
+  left: 45%;
+  display: grid;
+  z-index: 400;
+  border: 4px solid #0000;
+  border-radius: 50%;
+  border-right-color: #0084ff;
+  animation: spinner-a4dj62 1s infinite linear;
+}
+
+.spinner::before,
+.spinner::after {
+  content: "";
+  grid-area: 1/1;
+  margin: 2px;
+  border: inherit;
+  border-radius: 50%;
+  animation: spinner-a4dj62 2s infinite;
+}
+
+.spinner::after {
+  margin: 8px;
+  animation-duration: 3s;
+}
+
+@keyframes spinner-a4dj62 {
+  100% {
+    transform: rotate(1turn);
+  }
+}

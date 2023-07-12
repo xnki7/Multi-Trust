@@ -12,25 +12,32 @@ function App() {
   const [signer, setSigner] = useState(null);
   const [factoryContract, setFactoryContract] = useState(null);
   const [connected, setConnected] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   async function loadBcData() {
-    if (window.ethereum) {
-      const provider = new ethers.providers.Web3Provider(
-        window.ethereum,
-        "any"
-      );
-      const signer = provider.getSigner();
-      setSigner(signer);
-      const contractInstance = new ethers.Contract(
-        contractFactoryAddress,
-        contractFactoryABI,
-        signer
-      );
-      console.log(contractInstance);
-      setFactoryContract(contractInstance);
-      const address = await signer.getAddress();
-      console.log("Metamask Connected to " + address);
-      setAccount(address);
+    try {
+      if (window.ethereum) {
+        const provider = new ethers.providers.Web3Provider(
+          window.ethereum,
+          "any"
+        );
+        const signer = provider.getSigner();
+        setSigner(signer);
+        const contractInstance = new ethers.Contract(
+          contractFactoryAddress,
+          contractFactoryABI,
+          signer
+        );
+        console.log(contractInstance);
+        setFactoryContract(contractInstance);
+        setIsLoading(false);
+        const address = await signer.getAddress();
+        console.log("Metamask Connected to " + address);
+        setAccount(address);
+      }
+    } catch (error) {
+      setIsLoading(false);
+      console.log(error);
     }
   }
 
@@ -44,9 +51,15 @@ function App() {
       <Routes>
         <Route
           path="/"
-          element={<Homepage factoryContract={factoryContract} account={account}/>}
+          element={
+            <Homepage
+              factoryContract={factoryContract}
+              account={account}
+              isLoading={isLoading}
+            />
+          }
         />
-        <Route path="/wallet/:walletAddress" element={<Wallet/>} />
+        <Route path="/wallet/:walletAddress" element={<Wallet />} />
       </Routes>
     </div>
   );
