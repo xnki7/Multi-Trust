@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Homepage.css";
 
-function Homepage({ factoryContract }) {
+function Homepage({ factoryContract, account }) {
   const [owners, setOwners] = useState(["", ""]);
   const [myWallets, setMyWallets] = useState([]);
   const [required, setRequired] = useState(null);
@@ -54,7 +54,7 @@ function Homepage({ factoryContract }) {
 
   useEffect(() => {
     getMyWallets();
-  }, [factoryContract]);
+  }, [factoryContract, account]);
 
   return (
     <div className="Homepage">

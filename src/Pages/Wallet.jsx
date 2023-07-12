@@ -141,7 +141,148 @@ function Wallet() {
           </div>
         </div>
       </div>
-      <div className="table"></div>
+      <div className="table">
+        <table>
+          <tr id="head">
+            <th>Tx. ID</th>
+            <th>Approvals</th>
+            <th>Value</th>
+            <th>To</th>
+            <th>Date</th>
+            <th>Status</th>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>2</td>
+            <td>2 MATIC</td>
+            <td>0x98765...dhu84</td>
+            <td>10 June 2023</td>
+            <td>
+              <button id="Approve">Approve</button>
+            </td>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>2</td>
+            <td>2 MATIC</td>
+            <td>0x98765...dhu84</td>
+            <td>10 June 2023</td>
+            <td>
+              <button id="Revoke">Revoke</button>
+            </td>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>2</td>
+            <td>2 MATIC</td>
+            <td>0x98765...dhu84</td>
+            <td>10 June 2023</td>
+            <td>
+              <button id="Revoke">Revoke</button>
+            </td>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>2</td>
+            <td>2 MATIC</td>
+            <td>0x98765...dhu84</td>
+            <td>10 June 2023</td>
+            <td>
+              <button id="Revoke">Revoke</button>
+            </td>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>2</td>
+            <td>2 MATIC</td>
+            <td>0x98765...dhu84</td>
+            <td>10 June 2023</td>
+            <td>
+              <button id="Revoke">Revoke</button>
+            </td>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>2</td>
+            <td>2 MATIC</td>
+            <td>0x98765...dhu84</td>
+            <td>10 June 2023</td>
+            <td>
+              <button id="Revoke">Revoke</button>
+            </td>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>2</td>
+            <td>2 MATIC</td>
+            <td>0x98765...dhu84</td>
+            <td>10 June 2023</td>
+            <td>
+              <button id="Revoke">Revoke</button>
+            </td>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>2</td>
+            <td>2 MATIC</td>
+            <td>0x98765...dhu84</td>
+            <td>10 June 2023</td>
+            <td>
+              <button id="Revoke">Revoke</button>
+            </td>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>2</td>
+            <td>2 MATIC</td>
+            <td>0x98765...dhu84</td>
+            <td>10 June 2023</td>
+            <td>
+              <button id="Revoke">Revoke</button>
+            </td>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>2</td>
+            <td>2 MATIC</td>
+            <td>0x98765...dhu84</td>
+            <td>10 June 2023</td>
+            <td>
+              <button id="Revoke">Revoke</button>
+            </td>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>2</td>
+            <td>2 MATIC</td>
+            <td>0x98765...dhu84</td>
+            <td>10 June 2023</td>
+            <td>
+              <button id="Revoke">Revoke</button>
+            </td>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>2</td>
+            <td>2 MATIC</td>
+            <td>0x98765...dhu84</td>
+            <td>10 June 2023</td>
+            <td>
+              <button id="Revoke">Revoke</button>
+            </td>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>2</td>
+            <td>2 MATIC</td>
+            <td>0x98765...dhu84</td>
+            <td>10 June 2023</td>
+            <td>
+              <button id="Revoke">Revoke</button>
+            </td>
+          </tr>
+        </table>
+      </div>
     </div>
   );
 }

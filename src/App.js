@@ -44,7 +44,7 @@ function App() {
       <Routes>
         <Route
           path="/"
-          element={<Homepage factoryContract={factoryContract} />}
+          element={<Homepage factoryContract={factoryContract} account={account}/>}
         />
         <Route path="/wallet/:walletAddress" element={<Wallet/>} />
       </Routes>
