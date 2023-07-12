@@ -5,6 +5,7 @@ import { contractFactoryAddress, contractFactoryABI } from "./constant";
 import Navbar from "./components/Navbar";
 import Wallet from "./Pages/Wallet";
 import { Routes, Route } from "react-router-dom";
+import { publicProvider } from "wagmi/providers/public";
 import { ethers } from "ethers";
 
 function App() {
@@ -17,10 +18,7 @@ function App() {
   async function loadBcData() {
     try {
       if (window.ethereum) {
-        const provider = new ethers.providers.Web3Provider(
-          window.ethereum,
-          "any"
-        );
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
         const signer = provider.getSigner();
         setSigner(signer);
         const contractInstance = new ethers.Contract(
@@ -33,6 +31,21 @@ function App() {
         setIsLoading(false);
         const address = await signer.getAddress();
         console.log("Metamask Connected to " + address);
+        setAccount(address);
+      } else {
+        const provider = new ethers.providers.Web3Provider(publicProvider);
+        const signer = provider.getSigner();
+        setSigner(signer);
+        const contractInstance = new ethers.Contract(
+          contractFactoryAddress,
+          contractFactoryABI,
+          signer
+        );
+        console.log(contractInstance);
+        setFactoryContract(contractInstance);
+        setIsLoading(false);
+        const address = await signer.getAddress();
+        console.log("Public Provider Connected to " + address);
         setAccount(address);
       }
     } catch (error) {
