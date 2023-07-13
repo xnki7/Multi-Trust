@@ -142,18 +142,39 @@ function Wallet() {
   };
 
   const handleApprove = async (_txId) => {
-    const tx = await contractWallet.approve(_txId);
-    tx.wait();
+    try {
+      setLoading(true);
+      const tx = await contractWallet.approve(_txId);
+      tx.wait();
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      console.log(error);
+    }
   };
 
   const handleRevoke = async (_txId) => {
-    const tx = await contractWallet.revoke(_txId);
-    tx.wait();
+    try {
+      setLoading(true);
+      const tx = await contractWallet.revoke(_txId);
+      tx.wait();
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      console.log(error);
+    }
   };
 
   const handleExecute = async (_txId) => {
-    const tx = await contractWallet.execute(_txId);
-    tx.wait();
+    try {
+      setLoading(true);
+      const tx = await contractWallet.execute(_txId);
+      tx.wait();
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      console.log(error);
+    }
   };
 
   return (
